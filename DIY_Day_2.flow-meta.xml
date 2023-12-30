@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <assignments>
+        <description>Set Account type to user entered</description>
+        <name>Set_Account_type_to_user_entered</name>
+        <label>Set Account type to user entered</label>
+        <locationX>314</locationX>
+        <locationY>398</locationY>
+        <assignmentItems>
+            <assignToReference>varT_SetAccountType</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>DisplayOfAccountType</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Copy_1_of_Account_Details</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Setting Account Type to OTHERS</description>
+        <name>Setting_Account_Type_to_OTHERS</name>
+        <label>Setting Account Type to OTHERS</label>
+        <locationX>50</locationX>
+        <locationY>398</locationY>
+        <assignmentItems>
+            <assignToReference>varT_SetAccountType</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>OTHERS</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Copy_1_of_Account_Details</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Checking Account Type</description>
+        <name>Check_Account_Type</name>
+        <label>Check Account Type</label>
+        <locationX>182</locationX>
+        <locationY>278</locationY>
+        <defaultConnector>
+            <targetReference>Set_Account_type_to_user_entered</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>DIY_Day2_AccountType</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Setting_Account_Type_to_OTHERS</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>Do it yourself Day 2</description>
+    <environments>Default</environments>
+    <interviewLabel>DIY Day 2 {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Screen : DIY Day 2</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>Copy_1_of_Account_Details</name>
+        <label>Copy 1 of Account Details</label>
+        <locationX>182</locationX>
+        <locationY>614</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>ResultOfAccountName</name>
+            <fieldText>&lt;p&gt;{!DIY_Day2}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>DisplayofAccountRevenue</name>
+            <fieldText>&lt;p&gt;{!DIY_Day2AccountRevenue}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>DisplayOfAccountType</name>
+            <fieldText>&lt;p&gt;{!varT_SetAccountType}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>DIY_Day2AccountDetails</name>
+        <label>Account Details</label>
+        <locationX>182</locationX>
+        <locationY>158</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Check_Account_Type</targetReference>
+        </connector>
+        <fields>
+            <name>DIY_Day2</name>
+            <dataType>String</dataType>
+            <fieldText>Account Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>DIY_Day2AccountRevenue</name>
+            <dataType>Number</dataType>
+            <fieldText>Account Revenue</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>DIY_Day2_AccountType</name>
+            <dataType>String</dataType>
+            <fieldText>Accont Type</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>DIY_Day2AccountDetails</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+    <variables>
+        <description>Assigning values to types</description>
+        <name>varT_SetAccountType</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

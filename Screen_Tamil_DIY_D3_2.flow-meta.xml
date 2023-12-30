@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <environments>Default</environments>
+    <formulas>
+        <name>forN_SimpleInterestCalculator</name>
+        <dataType>Number</dataType>
+        <expression>{!Principal_Amount} * ({!Interest_rate_per_year_IN_PERCENTAGE} / 100) * {!Time_Period_IN_YEARS}</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>Screen : Tamil DIY D3 2 {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Screen : Tamil D3 DIY 2</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>Scree_2</name>
+        <label>Scree 2</label>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>SI_Display</name>
+            <fieldText>&lt;p&gt;Simple Interest is &lt;strong style=&quot;font-size: 14px;&quot;&gt;{!forN_SimpleInterestCalculator}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Screen_Simple_Interest_Calculator</name>
+        <label>Screen Simple Interest Calculator</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Scree_2</targetReference>
+        </connector>
+        <fields>
+            <name>Principal_Amount</name>
+            <dataType>Number</dataType>
+            <fieldText>Principal Amount</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>Interest_rate_per_year_IN_PERCENTAGE</name>
+            <dataType>Number</dataType>
+            <fieldText>Interest rate per year ( IN PERCENTAGE)</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>Time_Period_IN_YEARS</name>
+            <dataType>Number</dataType>
+            <fieldText>Time Period (IN YEARS)</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Screen_Simple_Interest_Calculator</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+</Flow>

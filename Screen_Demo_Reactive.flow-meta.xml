@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <environments>Default</environments>
+    <formulas>
+        <name>for_ageCalculation</name>
+        <dataType>Number</dataType>
+        <expression>YEAR(TODAY()) - YEAR({!Date_of_Birth})</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>Screen_Demo_Reactive {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Screen_Demo_Reactive</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>Screen_1</name>
+        <label>Screen 1</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Date_of_Birth</name>
+            <dataType>Date</dataType>
+            <fieldText>Date of Birth</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Age</name>
+            <dataType>Number</dataType>
+            <defaultValue>
+                <elementReference>for_ageCalculation</elementReference>
+            </defaultValue>
+            <fieldText>Age</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+            <scale>0</scale>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Screen_1</targetReference>
+        </connector>
+    </start>
+    <status>Obsolete</status>
+</Flow>

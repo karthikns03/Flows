@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <decisions>
+        <name>Checking_Annual_Revenue</name>
+        <label>Checking Annual Revenue</label>
+        <locationX>314</locationX>
+        <locationY>311</locationY>
+        <defaultConnectorLabel>Greater Than 200000</defaultConnectorLabel>
+        <rules>
+            <name>Less_Than_100000</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.AnnualRevenue</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <numberValue>100000.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Seting_Blank</targetReference>
+            </connector>
+            <label>Less Than 100000</label>
+        </rules>
+        <rules>
+            <name>Greater_Than_100000_AND_Less_Than_200000</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.AnnualRevenue</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>100000.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.AnnualRevenue</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <numberValue>200000.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Seting_Warm</targetReference>
+            </connector>
+            <label>Greater Than 100000 AND Less Than 200000</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <interviewLabel>Trigger : Tamil Day 8 {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Trigger : Tamil Day 8</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Seting_Blank</name>
+        <label>Seting Blank</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>GeocodeAccuracy</field>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Seting_Warm</name>
+        <label>Seting Warm</label>
+        <locationX>314</locationX>
+        <locationY>431</locationY>
+        <inputAssignments>
+            <field>Rating</field>
+            <value>
+                <stringValue>Warm</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Checking_Annual_Revenue</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>AnnualRevenue</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Lead</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
